@@ -1,0 +1,31 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "do-bench",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-01",
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "BENCH_DO",
+        "class_name": "BenchDO"
+      },
+      {
+        "name": "TICKER_DO",
+        "class_name": "TickerDO"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["BenchDO"]
+    },
+    {
+      "tag": "v2",
+      "new_sqlite_classes": ["TickerDO"]
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

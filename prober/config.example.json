@@ -1,0 +1,16 @@
+{
+  "workerUrl": "https://do-bench.YOUR_SUBDOMAIN.workers.dev",
+  "site": "vultr-tokyo",
+  "dataDir": "./data",
+  "metricsAddr": "127.0.0.1:9209",
+  "healthcheckUrl": "",
+  "rampUpSeconds": 60,
+  "tickTimeoutMs": 3500,
+  "reconnectMinMs": 100,
+  "reconnectMaxMs": 1500,
+  "cohorts": [
+    { "prefix": "s", "dos": 10, "connsPerDo": 1 },
+    { "prefix": "m", "dos": 4, "connsPerDo": 500 },
+    { "prefix": "l", "dos": 3, "connsPerDo": 5000 }
+  ]
+}
