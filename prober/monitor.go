@@ -115,9 +115,22 @@ func (c *Conn) run(ctx context.Context) {
 }
 
 func (c *Conn) readLoop(ctx context.Context, ws *websocket.Conn) bool {
-	timeout := time.Duration(c.m.cfg.TickTimeoutMs) * time.Millisecond
+	base := time.Duration(c.m.cfg.TickTimeoutMs) * time.Millisecond
+	// 再接続直後のグレース: 大量再接続の直後はDOがupgrade処理で忙しく
+	// tick配信が数秒揺れる。平常時と同じ物差しで見切ると
+	// 「タイムアウト→再接続→さらに配信遅延」の自励振動に入るため、
+	// 接続確立から一定時間は待ちを緩める。
+	grace := 2 * base
+	if grace < 8*time.Second {
+		grace = 8 * time.Second
+	}
+	start := time.Now()
 	identified := false
 	for {
+		timeout := base
+		if time.Since(start) < 15*time.Second {
+			timeout = grace
+		}
 		rctx, cancel := context.WithTimeout(ctx, timeout)
 		_, data, err := ws.Read(rctx)
 		cancel()
