@@ -4,7 +4,7 @@
   "timezone": "Asia/Tokyo",
   "editable": true,
   "time": {
-    "from": "2026-08-02T05:01:00Z",
+    "from": "2026-08-02T14:33:00Z",
     "to": "now"
   },
   "refresh": "1m",
