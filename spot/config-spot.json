@@ -1,0 +1,13 @@
+{
+  "workerUrl": "https://do-bench.dev-patt812.workers.dev",
+  "site": "sakura-spot",
+  "dataDir": "/home/ubuntu/do-bench/data-spot",
+  "metricsAddr": "127.0.0.1:9210",
+  "rampUpSeconds": 5,
+  "tickTimeoutMs": 3500,
+  "reconnectMinMs": 100,
+  "reconnectMaxMs": 1000,
+  "cohorts": [
+    { "prefix": "s", "startIndex": 90, "dos": 3, "connsPerDo": 3 }
+  ]
+}

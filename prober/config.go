@@ -12,6 +12,9 @@ type Cohort struct {
 	Prefix     string `json:"prefix"`
 	Dos        int    `json:"dos"`
 	ConnsPerDo int    `json:"connsPerDo"`
+	// StartIndex: DO名の開始番号（既定0）。スポット観測など、本隊の
+	// s-0.. と名前空間を分けたいときに使う（例: startIndex 90 → s-90..）。
+	StartIndex int `json:"startIndex"`
 }
 
 type Config struct {
@@ -81,7 +84,7 @@ func (c *Config) doNames() []struct{ Name, Cohort string } {
 	for _, co := range c.Cohorts {
 		for i := 0; i < co.Dos; i++ {
 			out = append(out, struct{ Name, Cohort string }{
-				Name:   fmt.Sprintf("%s-%d", co.Prefix, i),
+				Name:   fmt.Sprintf("%s-%d", co.Prefix, co.StartIndex+i),
 				Cohort: co.Prefix,
 			})
 		}
